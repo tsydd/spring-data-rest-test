@@ -1,12 +1,24 @@
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     watch = require('gulp-watch'),
-    connect = require('gulp-connect');
+    connect = require('gulp-connect'),
+    url = require('url'),
+    proxy = require('proxy-middleware');
 
 gulp.task('connect', function() {
     connect.server({
+        port: 8081,
         root: 'dist',
-        livereload: true
+        livereload: true,
+        middleware: function(connect, options) {
+            return [
+                (function() {
+                    var config = url.parse('http://localhost:8080/api');
+                    config.route = '/api';
+                    return proxy(config);
+                })()
+            ];
+        }
     });
 });
 
