@@ -1,5 +1,6 @@
 package data.config;
 
+import org.hibernate.cfg.AvailableSettings;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,9 +57,10 @@ public class JpaConfig {
 
     private Properties getAdditionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("hibernate.format_sql", "true");
+        properties.setProperty(AvailableSettings.HBM2DDL_AUTO, "create-drop");
+        properties.setProperty(AvailableSettings.SHOW_SQL, "true");
+        properties.setProperty(AvailableSettings.FORMAT_SQL, "true");
+        properties.setProperty(AvailableSettings.GENERATE_STATISTICS, "true");
         return properties;
     }
 }
